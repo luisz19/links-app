@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { View, Text, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity, Alert } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"
 import { router } from "expo-router"
 
@@ -16,7 +16,17 @@ export default function Add() {
     const [url, setUrl] = useState("")
 
     function handleAdd(){ //handle = funções disparadas a partir da interação com o usuário
-        console.log( {name, url} )
+        if(!category) { //se a categoria não foi seleionada, retorna um alerta
+            return Alert.alert("Categoria", " Selecione a categoria") //sai da função
+        }
+
+        if(!name.trim()) { //.trim() remove espaços
+            return Alert.alert("Nome", "Informe o nome")
+        }
+
+        if(!url.trim()) { //.trim() remove espaços
+            return Alert.alert("URL", "Informe a URL")
+        }
     }
 
     return(
