@@ -29,4 +29,17 @@ async function save(newLink: LinkStorage) {
     }
 }
 
-export const LinkStorage = { get, save }
+async function remove(id: string) {
+    try {
+        const storage = await get()
+
+        const updated = storage.filter((link) => link.id !== id)
+        //armazena todos os links, menos o id do link que to selecionando, atualizando o storage tirando o link que nao quero mais
+
+        await AsyncStorage.setItem(LINKS_STORAGE_KEY, JSON.stringify(updated))
+    } catch (error) {
+        throw error
+    }
+}
+
+export const LinkStorage = { get, save, remove }
