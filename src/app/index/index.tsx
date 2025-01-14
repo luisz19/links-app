@@ -59,11 +59,7 @@ export default function Index() {
 
     async function hadleOpen() {
         try {
-            const formattedUrl = link.url.startsWith('http://') || link.url.startsWith('https://')
-            ? link.url
-            : `https://${link.url}`; 
-        
-        await Linking.openURL(formattedUrl); // Abre o link
+            await Linking.openURL(link.url) //abre o link //tem que ter http ou https
         } catch (error) {
             Alert.alert("Link", "Não foi possível abrir o link")
             console.log(error)
