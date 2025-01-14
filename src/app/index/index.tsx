@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react"
 
-import { Image, View, TouchableOpacity, FlatList, Modal, Text, Alert } from "react-native"
+import { Image, View, TouchableOpacity, FlatList, Modal, Text, Alert, Linking } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"
 import { router, useFocusEffect } from "expo-router"
 
@@ -55,6 +55,19 @@ export default function Index() {
             { text : "Sim", onPress: linkRemove }
         ])
 
+    }
+
+    async function hadleOpen() {
+        try {
+            const formattedUrl = link.url.startsWith('http://') || link.url.startsWith('https://')
+            ? link.url
+            : `https://${link.url}`; 
+        
+        await Linking.openURL(formattedUrl); // Abre o link
+        } catch (error) {
+            Alert.alert("Link", "Não foi possível abrir o link")
+            console.log(error)
+        }
     }
 
     useFocusEffect( //toda que a tela receber o foco, ela vai chamar a lista
@@ -116,7 +129,7 @@ export default function Index() {
 
                         <View style={styles.modalFooter}>
                             <Option name="Excluir" icon="delete" variant="secondary" onPress={handleRemove}/>
-                            <Option name="Abrir" icon="language" /> 
+                            <Option name="Abrir" icon="language" onPress={hadleOpen} /> 
                             {/* Componentes */}
 
                         </View>
