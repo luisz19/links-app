@@ -21,7 +21,11 @@ export default function Index() {
     async function getLinks() {
         try {
             const response = await LinkStorage.get()
-            setLinks(response)
+
+            const filtered = response.filter((link) => link.category === category) //verifica se a categoria é igual a selecionada
+
+            setLinks(filtered)
+
         } catch (error){
             Alert.alert("Erro", "Não foi possível listar os links")
         }
